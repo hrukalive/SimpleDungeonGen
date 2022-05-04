@@ -9,9 +9,9 @@ inline void visitEach(std::initializer_list<juce::Component*> comps, FunctionTyp
 
 MainComponent::CanvasOverlayComponent::CanvasOverlayComponent(MainComponent* parent, juce::ValueTree& state)
 {
-	setInterceptsMouseClicks(true, false);
-	setOpaque(false);
-	setBounds(parent->getLocalBounds());
+    setInterceptsMouseClicks(true, false);
+    setOpaque(false);
+    setBounds(parent->getLocalBounds());
     this->parent = parent;
     this->generalState = state.getChildWithName(juce::Identifier("General"));
     this->randGenState = state.getChildWithName(juce::Identifier("Random Box Generation"));
@@ -26,7 +26,7 @@ void MainComponent::CanvasOverlayComponent::paint(juce::Graphics& g)
     bool useRectRegion = randGenState.getProperty(juce::Identifier("useRectRegion"), false);
     float radiusX = randGenState.getProperty(juce::Identifier("radiusX"), 8.0f);
     float radiusY = randGenState.getProperty(juce::Identifier("radiusY"), 8.0f);
-	
+    
     auto b2 = getLocalBounds();
     if (!generated)
     {
@@ -58,7 +58,7 @@ void MainComponent::CanvasOverlayComponent::paint(juce::Graphics& g)
             b2.getCentreY() + viewDy,
             mapWidth / 2 * scale + b2.getCentreX() + viewDx,
             b2.getCentreY() + viewDy), 2.f);
-		
+        
         g.setColour(juce::Colours::white);
         auto genRegion = juce::Rectangle<float>(
             -radiusX * scale + b2.getCentreX() + viewDx,
@@ -262,24 +262,24 @@ void MainComponent::CanvasOverlayComponent::mouseDrag(const juce::MouseEvent& e)
     auto pos = e.getOffsetFromDragStart();
     viewDx += pos.getX() - prevMouseX;
     viewDy += pos.getY() - prevMouseY;
-	prevMouseX = pos.getX();
-	prevMouseY = pos.getY();
+    prevMouseX = pos.getX();
+    prevMouseY = pos.getY();
     repaint();
 }
 void MainComponent::CanvasOverlayComponent::mouseWheelMove(const juce::MouseEvent& e, const juce::MouseWheelDetails& wheel)
 {
     fScale += wheel.deltaY * 5;
-	if (fScale < 1)
-		fScale = 1;
-	if (fScale > 32)
-		fScale = 32;
+    if (fScale < 1)
+        fScale = 1;
+    if (fScale > 32)
+        fScale = 32;
     if ((int)round(fScale) != scale)
     {
         viewDx += (e.getMouseDownX() - getWidth() / 2 - viewDx) * (1.0 - round(fScale) / (double)scale);
         viewDy += (e.getMouseDownY() - getHeight() / 2 - viewDy) * (1.0 - round(fScale) / (double)scale);
     }
     scale = round(fScale);
-	repaint();
+    repaint();
 }
 
 MainComponent::CustomSliderPropertyComponent::CustomSliderPropertyComponent(const juce::Value& valueToControl,
@@ -339,15 +339,15 @@ MainComponent::MainComponent()
     state.appendChild(otherTree, nullptr);
 
     state.addListener(this);
-	
+    
     canvasComp = std::make_unique<CanvasOverlayComponent>(this, state);
-	
+    
     std::for_each(stepBtns.begin(), stepBtns.end(), [this](juce::Component* c) { addAndMakeVisible(c); });
 
     addAndMakeVisible(propertyPanel);
     addAndMakeVisible(canvasComp.get());
     addAndMakeVisible(layoutResizer);
-	
+    
     addAndMakeVisible(btnResetView, 999);
     addAndMakeVisible(btnPipeline, 999);
     addAndMakeVisible(btnTileColor, 999);
@@ -382,12 +382,12 @@ MainComponent::MainComponent()
         stepBtns[i]->onClick = [this, i]() { runPipeline(i); };
 
     btnResetView.onClick = [this]() {
-		canvasComp->viewDx = 0;
+        canvasComp->viewDx = 0;
         canvasComp->viewDy = 0;
         canvasComp->scale = 10;
         canvasComp->fScale = 10;
-		repaint();
-	};
+        repaint();
+    };
     btnPipeline.onClick = [this]() {
         auto& generalParams = state.getChildWithName(juce::Identifier("General"));
         generalParams.setProperty("seed", (int)std::random_device{}(), nullptr);
@@ -436,8 +436,8 @@ void MainComponent::paint (juce::Graphics& g)
     auto layoutBounds = bounds;
     juce::Component panelDummy, canvasDummy;
     juce::Component* comps[] = { &panelDummy, &layoutResizer, &canvasDummy };
-	layout.layOutComponents(comps, 3, layoutBounds.getX(), layoutBounds.getY(), layoutBounds.getWidth(), layoutBounds.getHeight(), false, true);
-	
+    layout.layOutComponents(comps, 3, layoutBounds.getX(), layoutBounds.getY(), layoutBounds.getWidth(), layoutBounds.getHeight(), false, true);
+    
     if (lastStep > -1 && lastStep < stepBtns.size())
     {
         g.setColour(juce::Colours::aqua);
@@ -455,7 +455,7 @@ void MainComponent::paint (juce::Graphics& g)
     canvasComp->setBounds(canvasBounds.reduced(5));
     btnResetView.setBounds(bottomBounds.removeFromRight(100));
     btnTileColor.setBounds(bottomBounds.removeFromLeft(100));
-	
+    
     g.setColour(juce::Colours::grey.withAlpha(0.2f));
     g.fillRect(layoutResizer.getBoundsInParent());
 }

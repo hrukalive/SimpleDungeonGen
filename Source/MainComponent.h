@@ -13,22 +13,22 @@ class MainComponent  : public juce::Component, public juce::ValueTree::Listener
     class CanvasOverlayComponent : public juce::Component
     {
     public:
-		CanvasOverlayComponent(MainComponent* parent, juce::ValueTree& state);
-		void paint(juce::Graphics& g) override;
-		void resized() override;
+        CanvasOverlayComponent(MainComponent* parent, juce::ValueTree& state);
+        void paint(juce::Graphics& g) override;
+        void resized() override;
 
         void mouseDown(const juce::MouseEvent& e) override;
         void mouseDrag(const juce::MouseEvent& e) override;
         void mouseWheelMove(const juce::MouseEvent& e, const juce::MouseWheelDetails& wheel) override;
-		
+        
     private:
         using WeightedEdgeSet = std::set<std::tuple<int, int, double>, DungeonGenerationEngine::CustomTupleComp>;
         using EdgeSet = std::set<std::pair<int, int>>;
         using RoomBoxVec = std::vector<DungeonGenerationEngine::RoomBox>;
         using LineSet = std::set<std::tuple<double, double, double, double>>;
-		
-		MainComponent* parent;
-		
+        
+        MainComponent* parent;
+        
     public:
         //unsigned int mapWidth = 64, mapHeight = 64;
         juce::ValueTree generalState;
@@ -63,7 +63,7 @@ class MainComponent  : public juce::Component, public juce::ValueTree::Listener
             double skewFactor = 1.0,
             bool symmetricSkew = false);
     };
-	
+    
 public:
     //==============================================================================
     MainComponent();
@@ -96,7 +96,7 @@ private:
     DungeonGenerationEngine engine;
 
     juce::ValueTree state{ "ROOT" };
-	
+    
     juce::PropertyPanel propertyPanel{ "Generation Parameters" };
     std::unique_ptr<CanvasOverlayComponent> canvasComp;
 

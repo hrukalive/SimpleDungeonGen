@@ -182,11 +182,11 @@ DungeonGenerationEngine::RoomBoxVec DungeonGenerationEngine::randBox(
     bool largeBoxUseNormalDist, float largeBoxDistParamA, float largeBoxDistParamB, float largeBoxRatioLimit,
     float largeBoxRadiusMultiplier)
 {
-	smallBoxDistParamA = std::max(0.0f, smallBoxDistParamA);
-	smallBoxDistParamB = std::max(0.0f, smallBoxDistParamB);
-	largeBoxDistParamA = std::max(0.0f, largeBoxDistParamA);
-	largeBoxDistParamB = std::max(0.0f, largeBoxDistParamB);
-	
+    smallBoxDistParamA = std::max(0.0f, smallBoxDistParamA);
+    smallBoxDistParamB = std::max(0.0f, smallBoxDistParamB);
+    largeBoxDistParamA = std::max(0.0f, largeBoxDistParamA);
+    largeBoxDistParamB = std::max(0.0f, largeBoxDistParamB);
+    
     if (!smallBoxUseNormalDist && smallBoxDistParamB < smallBoxDistParamA)
         return {};
     if (!largeBoxUseNormalDist && largeBoxDistParamB < largeBoxDistParamA)
@@ -205,7 +205,7 @@ DungeonGenerationEngine::RoomBoxVec DungeonGenerationEngine::randBox(
 
     radiusX = std::max(1.0f, radiusX);
     radiusY = std::max(1.0f, radiusY);
-	largeBoxRadiusMultiplier = std::max(0.01f, largeBoxRadiusMultiplier);
+    largeBoxRadiusMultiplier = std::max(0.01f, largeBoxRadiusMultiplier);
 
     int i = 0;
     while (i < numBox && i < maxIteration)
@@ -250,14 +250,14 @@ DungeonGenerationEngine::RoomBoxVec DungeonGenerationEngine::randBox(
         double cx = 0, cy = 0;
         if (useRectRegion)
         {
-			cx = (pos_dist(generator) - 0.5) * 2.0 * radiusX;
-			cy = (pos_dist(generator) - 0.5) * 2.0 * radiusY;
+            cx = (pos_dist(generator) - 0.5) * 2.0 * radiusX;
+            cy = (pos_dist(generator) - 0.5) * 2.0 * radiusY;
         }
         else
         {
             double t = 2 * M_PI * pos_dist(generator);
             double u = std::sqrt(pos_dist(generator));
-			if (largeBox)
+            if (largeBox)
                 u *= largeBoxRadiusMultiplier;
             cx = radiusX * u * std::cos(t);
             cy = radiusY * u * std::sin(t);
@@ -321,7 +321,7 @@ DungeonGenerationEngine::RoomBoxVec DungeonGenerationEngine::centerAndCropBox(Ro
 {
     if (boxes.size() == 0)
         return boxes;
-	
+    
     double centerX = 0.0, centerY = 0.0;
     for (auto& box : boxes)
     {
